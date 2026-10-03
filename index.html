@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08152b">
+  <meta name="description" content="A graduation gift for Ann Wanjiku — Shiku, who kept believing, kept going, and made it.">
+  <title>For Shiku — You Made It</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="celebration-canvas" aria-hidden="true"></canvas>
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <button class="music-control" id="music-toggle" type="button" aria-label="Play background music" title="Play background music"><span class="music-icon">♫</span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+  <audio id="bg-music" src="assets/music/graduation.mp3" loop preload="none"></audio>
+
+  <main>
+    <section class="opening screen active" id="opening" aria-labelledby="opening-title">
+      <div class="opening-stars" aria-hidden="true"></div>
+      <p class="eyebrow appear">A little pause before the applause</p>
+      <div class="opening-sequence">
+        <p class="wait-line">WAIT... 👀</p>
+        <h1 id="opening-title"><span>Before you celebrate</span><span>your graduation...</span></h1>
+        <p class="opening-intro">There is something I need you to see. <span aria-hidden="true">❤️</span></p>
+        <div class="name-lockup"><span class="name">ANN WANJIKU</span><span class="nickname">SHIKU <span aria-hidden="true">💕</span></span><span class="favorite">My Favorite Love</span></div>
+        <p class="opening-note">A little something from someone who has watched you fight, pray, sacrifice, survive... and finally make it. 🥹❤️</p>
+        <button class="button button-gold" id="open-surprise" type="button">OPEN YOUR SURPRISE <span>🎁✨</span></button>
+      </div>
+      <div class="opening-footer">MADE WITH LOVE BY ZACCY DREAMER</div>
+    </section>
+
+    <div class="journey" id="journey" hidden>
+      <header class="topbar"><a class="brand" href="#chapter-1" aria-label="Shiku's graduation journey"><span class="brand-mark">✦</span><span>FOR SHIKU</span></a><div class="progress-wrap"><span class="progress-label" id="progress-label">CHAPTER 01 / 10</span><div class="progress-track"><span id="progress-fill"></span></div></div></header>
+      <nav class="chapter-nav" aria-label="Chapters" id="chapter-nav"></nav>
+
+      <section class="chapter active" id="chapter-1" data-title="First Person">
+        <div class="chapter-inner split-layout">
+          <div class="chapter-copy"><p class="eyebrow">01 — THE PEOPLE WHO SHOW UP</p><h2>MY <em>FIRST</em><br>PERSON.</h2><p class="lead">“When I need someone...”</p><div class="reveal-copy" id="first-person-copy"><p>“You're usually one of the first people I think of.”</p><p class="swahili">“Nikiitaju chwani 😂 ka soo... it's you.”</p></div><div class="support-grid"><article>🧠<span>Mental support</span></article><article>❤️<span>Emotional support</span></article><article>🤝<span>Physical support</span></article><article>💰<span>Financial support</span></article></div><p class="body-copy">You have stood by me in ways I will never forget.</p></div>
+          <figure class="portrait-frame"><img class="shiku-photo" src="assets/images/shiku.jpg" alt="Ann Wanjiku, Shiku" loading="lazy"><div class="photo-fallback"><span>📸</span><b>Her photo will be placed here ❤️</b><small>Add your photo as <code>assets/images/shiku.jpg</code></small></div><figcaption>MY SISTER. MY SAFE PLACE. MY FAMILY.</figcaption></figure>
+        </div>
+      </section>
+
+      <section class="chapter" id="chapter-2" data-title="The Journey">
+        <div class="chapter-inner"><p class="eyebrow">02 — HER ROAD, HER STRENGTH</p><h2>THE JOURNEY<br><em>WAS NEVER SIMPLE.</em></h2><p class="lead">Life asked a lot of you, before it gave you the chance to return to your dream.</p>
+          <div class="timeline"><article><span>🌱</span><div><h3>Early years</h3><p>Life wasn't always easy.</p></div></article><article><span>🏫</span><div><h3>School</h3><p>Your education was interrupted early. The dream, though, never disappeared.</p></div></article><article><span>👶🏽</span><div><h3>Responsibility</h3><p>You stayed with and cared for my younger brother.</p></div></article><article><span>🏠</span><div><h3>Family</h3><p>While your own plans waited, you kept supporting our family.</p></div></article><article><span>💰</span><div><h3>Me</h3><p>When I was in high school, you paid my rent. You helped without making me feel like a burden.</p></div></article><article><span>❤️</span><div><h3>Sacrifice</h3><p>You gave, even in seasons when you had your own struggles.</p></div></article><article><span>🙏🏽</span><div><h3>Faith</h3><p>You kept believing. “God will work it out.”</p></div></article><article><span>📚</span><div><h3>Returning to the dream</h3><p>You found a way to study again. You pushed through and kept moving.</p></div></article><article class="timeline-finale"><span>🎓</span><div><h3>Graduation</h3><p>SHE MADE IT.</p></div></article></div>
+        </div>
+      </section>
+
+      <section class="chapter faith-chapter" id="chapter-3" data-title="God Will Work It Out">
+        <div class="faith-scene" id="faith-scene"><div class="faith-light"></div><p class="eyebrow">03 — YOUR WORDS, YOUR ANCHOR</p><h2>GOD WILL<br><em>WORK IT OUT.</em> 🙏🏽✨</h2><div class="faith-lines"><p>In the middle of darkness, you still looked for light.</p><p>When things didn't make sense, you prayed.</p><p>When the road wasn't clear, you still believed.</p><p>You kept saying: <strong>“God will work it out.”</strong></p></div><p class="faith-ending">AND HE BROUGHT YOU HERE. 🙏🏽❤️🎓</p><div class="faith-symbols" aria-hidden="true"><span>🕯️</span><span>🙏🏽</span><span>✨</span><span>🌅</span><span>🎓</span></div><button class="button button-outline faith-trigger" type="button">LET THE LIGHT IN ✨</button></div>
+      </section>
+
+      <section class="chapter" id="chapter-4" data-title="The Chef">
+        <div class="chapter-inner chef-chapter"><p class="eyebrow">04 — AN IMPORTANT FAMILY ANNOUNCEMENT</p><p class="chef-prelude">BUT THERE IS SOMETHING ELSE<br>WE NEED TO DISCUSS... 👀</p><h2>THIS WOMAN<br><em>CAN COOK.</em> 😂🍲🔥</h2><div class="ratings"><article><span>🍲</span><b>Taste</b><strong>1000/10</strong></article><article><span>🔥</span><b>Flavour</b><strong>UNFAIR</strong></article><article><span>❤️</span><b>Love in the food</b><strong>UNLIMITED</strong></article><article><span>😂</span><b>Everyone asking for more</b><strong>LEGENDARY</strong></article></div><button class="plate-button" id="plate-button" type="button" aria-label="Tap the plate for a surprise"><span>🍽️</span><small>TAP THE PLATE</small></button><p class="plate-message" id="plate-message" aria-live="polite">Your food honestly deserves its own website. 😂🍲🔥</p><p class="chef-footnote">No menu needed. The family already knows. 😌</p></div>
+      </section>
+
+      <section class="chapter" id="chapter-5" data-title="Who Shiku Is">
+        <div class="chapter-inner"><p class="eyebrow">05 — ALL THE THINGS YOU ARE</p><h2>WHO <em>SHIKU</em> IS.</h2><p class="lead">Tap a quality. Let it remind you how much you bring into every room.</p><div class="qualities" id="qualities"><button>💕<span>Loving</span></button><button>❤️<span>Caring</span></button><button>😂<span>Funny</span></button><button>🌸<span>Beautiful</span></button><button>✨<span>Good vibes</span></button><button>🤝<span>Supportive</span></button><button>🔥<span>Resilient</span></button><button>🙏🏽<span>Faithful</span></button><button>🧠<span>Strong</span></button><button>👑<span>Determined</span></button><button>🌟<span>Hopeful</span></button></div><p class="quality-message" id="quality-message" aria-live="polite">A whole lot of wonderful, in one person. ✨</p></div>
+      </section>
+
+      <section class="chapter reveal-chapter" id="chapter-6" data-title="She Made It">
+        <div class="reveal-stage" id="reveal-stage"><div class="reveal-orb"></div><div class="reveal-content"><p class="eyebrow">06 — THIS MOMENT BELONGS TO YOU</p><div class="cap-rise">🎓</div><p class="made-it">SHE MADE IT.</p><h2>ANN WANJIKU</h2><p class="graduate">GRADUATE <span>🎓✨</span></p><div class="reveal-lines"><p>This isn't just a certificate.</p><p>This is a dream that refused to die.</p><p>This is perseverance. This is faith.</p><p>This is a new beginning.</p></div></div></div>
+      </section>
+
+      <section class="chapter promise-chapter" id="chapter-7" data-title="What You Mean to Me">
+        <div class="chapter-inner"><p class="eyebrow">07 — FROM MY HEART TO YOURS</p><h2>WHAT YOU<br><em>MEAN TO ME.</em></h2><div class="promise-card"><p>I may not have much money right now.</p><p>I may not always be able to give you everything I wish I could.</p><p>But whenever I am able to do something for you...</p><strong>I WILL BE THERE. ❤️</strong></div><div class="remember-list"><p>You stood with me and my family in ways I will never forget.</p><p>I will remember the little things. The big things.</p><p>The moments you helped when nobody was watching.</p><p>The sacrifices. The rent. The encouragement.</p><p>The times you simply showed up.</p></div><p class="promise-last">Whenever I have the ability to stand for you,<br><b>I will stand with you. 🤝❤️</b></p></div>
+      </section>
+
+      <section class="chapter prayer-chapter" id="chapter-8" data-title="My Prayer">
+        <div class="chapter-inner"><p class="eyebrow">08 — A PRAYER FOR YOUR NEXT SEASON</p><h2>MY PRAYER<br><em>FOR YOU.</em> 🙏🏽✨</h2><div class="prayer-grid"><p>May God open doors for you.</p><p>May He create opportunities where there seem to be none.</p><p>May He bless the work of your hands.</p><p>May He reward every sacrifice.</p><p>May He give you peace and financial freedom.</p><p>May He surround you with genuine people.</p><p>May He protect your heart and give you strength.</p><p>May your prayers become testimonies.</p><p>May your next chapter be greater than everything behind you.</p></div><p class="prayer-ending">May the God you always said would work it out...<br><b>work it out for YOU. 🙏🏽❤️</b></p></div>
+      </section>
+
+      <section class="chapter doors-chapter" id="chapter-9" data-title="Doors & Windows">
+        <div class="chapter-inner"><p class="eyebrow">09 — MAY THE WAY OPEN</p><h2>WHEN THE WAY<br><em>ISN'T CLEAR...</em></h2><p class="lead">Life may put obstacles in your way. Tap each one.</p><div class="obstacles"><button class="obstacle door" data-message="MAY DOORS OPEN FOR YOU. ✨"><span>🚪</span><b>CLOSED DOOR</b><small>Tap to open</small></button><button class="obstacle wall" data-message="MAY WALLS FALL BEFORE YOU. 💥✨"><span>🧱</span><b>WALL</b><small>Tap to break through</small></button><button class="obstacle window" data-message="AND IF THERE IS NO DOOR... MAY A WINDOW OPEN. 🌸✨"><span>🪟</span><b>CLOSED WINDOW</b><small>Tap to open</small></button></div><p id="obstacle-message" class="obstacle-message" aria-live="polite">Nothing should stop you from becoming who you are meant to be. 👑</p></div>
+      </section>
+
+      <section class="chapter growth-chapter" id="chapter-10" data-title="Your Next Chapter">
+        <div class="chapter-inner"><p class="eyebrow">10 — THE STORY KEEPS GROWING</p><h2>YOU KEPT<br><em>GROWING.</em></h2><p class="lead">Tap to grow your little reminder, one season at a time.</p><button class="plant-button" id="plant-button" type="button" aria-label="Grow the plant"><span id="plant-emoji">🌱</span><small id="plant-stage">DREAM</small><i>Tap to grow ✨</i></button><p class="plant-message" id="plant-message">You kept growing, even when life wasn't easy.</p><div class="memory-wall"><h3>THINGS I WILL ALWAYS REMEMBER</h3><div class="memory-grid"><button>💰<span>The rent</span><small>You showed up when I needed you.</small></button><button>🤝<span>The support</span><small>You made sure I didn't carry it alone.</small></button><button>❤️<span>The love</span><small>Steady, generous, unmistakable.</small></button><button>🧠<span>The advice</span><small>Your words helped me find my way.</small></button><button>😂<span>The laughter</span><small>You always made room for joy.</small></button><button>🍲<span>The food</span><small>That legendary family hospitality.</small></button><button>🙏🏽<span>The prayers</span><small>“God will work it out.”</small></button><button>🎓<span>The dream</span><small>You kept going until you got here.</small></button></div></div>
+        </div>
+      </section>
+
+      <section class="chapter sunrise-chapter" id="sunrise" data-title="Sunrise">
+        <div class="sunrise-scene"><div class="sun"></div><p class="eyebrow">THE MORNING AFTER EVERY LONG NIGHT</p><div class="sunrise-lines"><p>You looked for ways to thrive.</p><p>And you found them.</p><p>You walked through darkness.</p><p>You searched for light.</p><p>You prayed. You believed. You kept going.</p></div><h2>GOD WORKED IT OUT. 🙏🏽✨</h2><p class="next-chapter">NOW YOUR NEXT CHAPTER BEGINS. 🌅</p></div>
+      </section>
+
+      <section class="chapter final-chapter" id="finale" data-title="Celebrate">
+        <div class="final-content"><p class="eyebrow">LOOK AT YOU, GRADUATE</p><div class="final-flower">💐</div><p class="final-name">ANN WANJIKU 🎓<br><span>SHIKU 💕</span></p><p class="final-favorite">MY FAVORITE LOVE</p><h2>YOU MADE IT.<br><span>🥹❤️🎓</span></h2><div class="final-promises"><p>I am proud of you.</p><p>I believe in you.</p><p>I will pray for you.</p><p>I will celebrate your success.</p><p>And whenever I can stand beside you, I will.</p></div><p class="story-still">YOUR STORY IS STILL BEING WRITTEN. ✨</p><p class="congrats">CONGRATULATIONS, SHIKU. 🎓🌸❤️</p><p class="proud">I'M SO PROUD OF YOU.</p><p class="signature">— Zaccy Dreamer</p><button class="button button-gold replay-button" id="replay-button" type="button">EXPERIENCE IT AGAIN ✨</button></div>
+      </section>
+
+      <footer class="journey-footer"><span>FOR SHIKU, WITH LOVE</span><span>✦</span><span>YOU MADE IT</span></footer>
+      <div class="chapter-controls"><button class="button button-outline" id="previous-chapter" type="button">← PREVIOUS</button><button class="button button-gold" id="next-chapter" type="button">CONTINUE <span>→</span></button></div>
+    </div>
+  </main>
+  <div class="photo-viewer" id="photo-viewer" role="dialog" aria-modal="true" aria-label="Shiku's photo" hidden><button type="button" class="photo-close" aria-label="Close photo">×</button><img src="assets/images/shiku.jpg" alt="Ann Wanjiku, Shiku"></div>
+  <script src="script.js"></script>
+</body>
+</html>
