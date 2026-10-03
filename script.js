@@ -203,17 +203,22 @@
   });
   $('#plate-button').addEventListener('click', () => {
     const message = $('#plate-message');
-    message.textContent = message.dataset.served ? 'Absolutely legendary. 😂🍲' : 'ONE MORE SERVING? 😂';
+    message.textContent = message.dataset.served ? 'You know I’m coming back for seconds. 😂' : 'ONE MORE SERVING? 😂';
     message.dataset.served = 'yes';
     burst(16, ['sparkle']);
   });
   const qualityMessages = {
-    'Loving': 'Your love has held our family together. 💕', 'Caring': 'You notice what people need, then you show up. ❤️',
-    'Funny': 'You know how to make us laugh, even in the hard days. 😂', 'Beautiful': 'Beautiful in spirit, in strength, and in every way. 🌸',
-    'Good vibes': 'You bring warmth wherever you go. ✨', 'Supportive': 'You have been there for me, again and again. 🤝',
-    'Resilient': 'You have faced hard seasons and kept moving. 🔥', 'Faithful': 'You kept your faith and held onto hope. 🙏🏽',
-    'Strong': 'There is a quiet strength in the way you keep going. 🧠', 'Determined': 'Your dream waited, but you never let it go. 👑',
-    'Hopeful': 'You keep making room for a brighter tomorrow. 🌟'
+    'Loving': 'You’ve done so much for me and our family. I know that comes from love. 💕',
+    'Caring': 'You stayed with my younger brother and took care of him. ❤️',
+    'Funny': 'You know how to make me laugh, even when I’m being too serious. 😂',
+    'Beautiful': 'You’re beautiful, Shiku. I hope you know that. 🌸',
+    'Good vibes': 'I’m glad you’re my sister. You make family feel like home. ✨',
+    'Supportive': 'When I needed help, you were there. You never made me feel like a burden. 🤝',
+    'Resilient': 'School had to wait, but when you could, you found your way back to it.',
+    'Faithful': 'When things were hard, you kept saying, “God will work it out.” 🙏🏽',
+    'Strong': 'You kept caring for us while dealing with your own struggles.',
+    'Determined': 'You went back to school and finished. I’m proud of you. 👑',
+    'Hopeful': 'You kept believing education was still possible for you. 🌟'
   };
   $$('#qualities button').forEach(button => button.addEventListener('click', () => {
     $$('#qualities button').forEach(item => item.classList.remove('selected'));
@@ -234,7 +239,7 @@
     $('#plant-emoji').textContent = stages[plantStage][0];
     $('#plant-stage').textContent = stages[plantStage][1];
     if (plantStage === stages.length - 1) {
-      $('#plant-message').textContent = 'You kept growing, even when life wasn’t easy. And look how far you grew. 🎓';
+      $('#plant-message').textContent = 'You went back to school and finished, Shiku. Look at you now. I’m proud of you. 🎓';
       burst(28, ['flower', 'gold']);
     }
   });
