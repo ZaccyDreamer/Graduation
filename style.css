@@ -25,5 +25,9 @@ body{background:linear-gradient(135deg,#48233c 0%,#75405e 48%,#592d4b 100%)}
 .music-control{background:#552e4b;color:#fff1de;border-color:#f2cddd99}.music-control.synth-playing{box-shadow:0 0 22px #f1b7d088,0 5px 24px #0005}
 @media(min-width:701px){.chapter:not(.reveal-chapter):not(.sunrise-chapter):not(.final-chapter){padding-right:195px}}
 @media(max-width:700px){.chapter-nav{top:58px;left:0;right:0;bottom:auto;transform:none;width:100%;max-height:none;height:48px;flex-direction:row;align-items:center;gap:5px;overflow-x:auto;overflow-y:hidden;padding:6px 9px;border:0;border-bottom:1px solid #f1c2d333;border-radius:0;box-shadow:0 7px 20px #200e1d30;scrollbar-width:none}.chapter-nav::-webkit-scrollbar{display:none}.chapter-nav a{flex:0 0 auto;min-height:32px;padding:9px 10px;background:#ffffff0b;border:1px solid #f2d4e322;font-size:.58rem}.chapter-nav a.active{background:#f4c2d833}.chapter{padding-top:122px!important}.chapter:not(.reveal-chapter):not(.sunrise-chapter):not(.final-chapter){padding-right:25px}}
+.chapter.group-extra{min-height:0!important;padding-top:42px!important;padding-bottom:70px!important}
+.chapter.group-extra.sunrise-chapter,.chapter.group-extra.final-chapter{min-height:0!important;padding-top:80px!important;padding-bottom:80px!important}
+.inspiration-note{max-width:580px;margin:10px auto 20px;color:#f3dba6;font:italic 1.05rem/1.65 var(--serif)}
+@media(max-width:700px){.chapter.group-extra{padding-top:34px!important;padding-bottom:70px!important}.chapter.group-extra.sunrise-chapter,.chapter.group-extra.final-chapter{padding-top:56px!important;padding-bottom:74px!important}}
 .portrait-frame{width:min(100%,360px);height:440px;min-height:440px;margin-inline:auto}.portrait-frame img{object-position:center 35%}
 @media(max-width:700px){.portrait-frame{width:min(88%,360px);height:430px;min-height:430px}}

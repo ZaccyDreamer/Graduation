@@ -5,6 +5,16 @@
   const opening = $('#opening');
   const journey = $('#journey');
   const chapters = $$('.chapter');
+  // Keep every interaction, while combining related sections into fewer stops.
+  const chapterGroups = [
+    { title: 'First Person + Journey', sections: [0, 1] },
+    { title: 'Faith + Prayer', sections: [2, 7] },
+    { title: 'Chef + Shiku', sections: [3, 4] },
+    { title: 'She Made It', sections: [5] },
+    { title: 'My Promise', sections: [6] },
+    { title: 'Doors + Growth', sections: [8, 9] },
+    { title: 'Next Chapter + Celebration', sections: [10, 11] }
+  ];
   const nav = $('#chapter-nav');
   const music = $('#bg-music');
   const musicButton = $('#music-toggle');
@@ -16,46 +26,50 @@
   let synthTimer;
   let synthStep = 0;
 
-  // Generate the chapter rail from the actual sections, so it stays in sync.
-  chapters.forEach((chapter, index) => {
+  // Generate the shorter chapter rail from the grouped sections.
+  chapterGroups.forEach((group, index) => {
     const button = document.createElement('a');
-    button.href = `#${chapter.id}`;
-    button.setAttribute('aria-label', `Go to chapter ${index + 1}: ${chapter.dataset.title}`);
-    button.innerHTML = `<span>${String(index + 1).padStart(2, '0')} — ${chapter.dataset.title}</span>`;
+    button.href = `#${chapters[group.sections[0]].id}`;
+    button.setAttribute('aria-label', `Go to chapter ${index + 1}: ${group.title}`);
+    button.innerHTML = `<span>${String(index + 1).padStart(2, '0')} — ${group.title}</span>`;
     button.addEventListener('click', event => { event.preventDefault(); showChapter(index); });
     nav.append(button);
   });
   const navButtons = $$('a', nav);
 
   function showChapter(index) {
-    current = Math.max(0, Math.min(index, chapters.length - 1));
+    current = Math.max(0, Math.min(index, chapterGroups.length - 1));
+    const selected = chapterGroups[current].sections;
     chapters.forEach((chapter, i) => {
-      chapter.classList.toggle('active', i === current);
-      chapter.setAttribute('aria-hidden', String(i !== current));
+      const visible = selected.includes(i);
+      chapter.classList.toggle('active', visible);
+      chapter.classList.toggle('group-extra', visible && i !== selected[0]);
+      chapter.setAttribute('aria-hidden', String(!visible));
     });
     navButtons.forEach((button, i) => {
       button.classList.toggle('active', i === current);
       if (i === current) button.setAttribute('aria-current', 'step');
       else button.removeAttribute('aria-current');
     });
-    $('#progress-label').textContent = `CHAPTER ${String(current + 1).padStart(2, '0')} / ${String(chapters.length).padStart(2, '0')}`;
-    $('#progress-fill').style.width = `${((current + 1) / chapters.length) * 100}%`;
+    $('#progress-label').textContent = `CHAPTER ${String(current + 1).padStart(2, '0')} / ${String(chapterGroups.length).padStart(2, '0')}`;
+    $('#progress-fill').style.width = `${((current + 1) / chapterGroups.length) * 100}%`;
     $('#previous-chapter').disabled = current === 0;
-    $('#next-chapter').textContent = current === chapters.length - 1 ? 'BACK TO THE BEGINNING ↺' : 'CONTINUE →';
-    $('#next-chapter').setAttribute('aria-label', current === chapters.length - 1 ? 'Back to the beginning' : 'Continue to next chapter');
+    $('#next-chapter').textContent = current === chapterGroups.length - 1 ? 'BACK TO THE BEGINNING ↺' : 'CONTINUE →';
+    $('#next-chapter').setAttribute('aria-label', current === chapterGroups.length - 1 ? 'Back to the beginning' : 'Continue to next chapter');
     $('#previous-chapter').style.opacity = current === 0 ? '.45' : '1';
     window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
     if (window.innerWidth <= 700) {
       nav.scrollTo({ left: Math.max(0, navButtons[current].offsetLeft - (nav.clientWidth - navButtons[current].clientWidth) / 2), behavior: reducedMotion ? 'auto' : 'smooth' });
     }
-    if (chapters[current].id === 'chapter-3') window.setTimeout(() => $('#chapter-3').classList.add('lit'), 300);
-    if (chapters[current].id === 'chapter-6') {
+    const ids = selected.map(i => chapters[i].id);
+    if (ids.includes('chapter-3')) window.setTimeout(() => $('#chapter-3').classList.add('lit'), 300);
+    if (ids.includes('chapter-6')) {
       window.setTimeout(() => {
         $('#chapter-6').classList.add('revealed');
         burst(110, ['gold', 'flower', 'cap', 'sparkle']);
       }, 450);
     }
-    if (chapters[current].id === 'finale') burst(180, ['gold', 'flower', 'cap', 'confetti', 'heart', 'sparkle']);
+    if (ids.includes('finale')) burst(180, ['gold', 'flower', 'cap', 'confetti', 'heart', 'sparkle']);
   }
 
   function chime() {
@@ -119,7 +133,7 @@
       audioContext ||= new AudioCtx();
       await audioContext.resume();
       synthGain = audioContext.createGain();
-      synthGain.gain.value = .22;
+      synthGain.gain.value = .42;
       synthGain.connect(audioContext.destination);
       synthStep = 0;
       playSynthChord();
@@ -170,7 +184,7 @@
     playMusic();
   });
   $('#previous-chapter').addEventListener('click', () => showChapter(current - 1));
-  $('#next-chapter').addEventListener('click', () => current === chapters.length - 1 ? showChapter(0) : showChapter(current + 1));
+  $('#next-chapter').addEventListener('click', () => current === chapterGroups.length - 1 ? showChapter(0) : showChapter(current + 1));
   $('#replay-button').addEventListener('click', () => {
     journey.hidden = true;
     opening.hidden = false;
