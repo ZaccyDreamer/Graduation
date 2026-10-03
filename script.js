@@ -12,17 +12,20 @@
   let current = 0;
   let audioContext;
   let audioAvailable = true;
+  let synthGain;
+  let synthTimer;
+  let synthStep = 0;
 
   // Generate the chapter rail from the actual sections, so it stays in sync.
   chapters.forEach((chapter, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
+    const button = document.createElement('a');
+    button.href = `#${chapter.id}`;
     button.setAttribute('aria-label', `Go to chapter ${index + 1}: ${chapter.dataset.title}`);
     button.innerHTML = `<span>${String(index + 1).padStart(2, '0')} — ${chapter.dataset.title}</span>`;
-    button.addEventListener('click', () => showChapter(index));
+    button.addEventListener('click', event => { event.preventDefault(); showChapter(index); });
     nav.append(button);
   });
-  const navButtons = $$('button', nav);
+  const navButtons = $$('a', nav);
 
   function showChapter(index) {
     current = Math.max(0, Math.min(index, chapters.length - 1));
@@ -41,7 +44,10 @@
     $('#next-chapter').textContent = current === chapters.length - 1 ? 'BACK TO THE BEGINNING ↺' : 'CONTINUE →';
     $('#next-chapter').setAttribute('aria-label', current === chapters.length - 1 ? 'Back to the beginning' : 'Continue to next chapter');
     $('#previous-chapter').style.opacity = current === 0 ? '.45' : '1';
-    window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    if (window.innerWidth <= 700) {
+      nav.scrollTo({ left: Math.max(0, navButtons[current].offsetLeft - (nav.clientWidth - navButtons[current].clientWidth) / 2), behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
     if (chapters[current].id === 'chapter-3') window.setTimeout(() => $('#chapter-3').classList.add('lit'), 300);
     if (chapters[current].id === 'chapter-6') {
       window.setTimeout(() => {
@@ -73,22 +79,83 @@
     } catch (_) { /* The website remains usable when Web Audio is unavailable. */ }
   }
 
-  async function playMusic() {
-    if (!audioAvailable) return false;
+  function setMusicPlaying(playing, fallback = false) {
+    musicButton.classList.toggle('playing', playing);
+    musicButton.classList.toggle('synth-playing', playing && fallback);
+    musicButton.setAttribute('aria-label', playing ? 'Pause background music' : 'Play background music');
+    musicButton.title = playing ? (fallback ? 'Pause gentle instrumental music' : 'Pause background music') : 'Play background music';
+  }
+
+  function playSynthChord() {
+    if (!audioContext || !synthGain || audioContext.state !== 'running') return;
+    const chords = [
+      [261.63, 329.63, 392.00, 523.25],
+      [220.00, 261.63, 329.63, 440.00],
+      [174.61, 220.00, 261.63, 349.23],
+      [196.00, 246.94, 293.66, 392.00]
+    ];
+    const notes = chords[synthStep % chords.length];
+    const start = audioContext.currentTime + .06;
+    notes.forEach((frequency, index) => {
+      const oscillator = audioContext.createOscillator();
+      const envelope = audioContext.createGain();
+      oscillator.type = index === 0 ? 'sine' : 'triangle';
+      oscillator.frequency.value = frequency;
+      const onset = start + index * .34;
+      envelope.gain.setValueAtTime(.0001, onset);
+      envelope.gain.exponentialRampToValueAtTime(index === 0 ? .34 : .2, onset + .045);
+      envelope.gain.exponentialRampToValueAtTime(.0001, onset + 1.7);
+      oscillator.connect(envelope).connect(synthGain);
+      oscillator.start(onset);
+      oscillator.stop(onset + 1.75);
+    });
+    synthStep++;
+  }
+
+  async function startSynthMusic() {
     try {
-      music.volume = .32;
-      await music.play();
-      musicButton.classList.add('playing');
-      musicButton.setAttribute('aria-label', 'Pause background music');
-      musicButton.title = 'Pause background music';
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return false;
+      audioContext ||= new AudioCtx();
+      await audioContext.resume();
+      synthGain = audioContext.createGain();
+      synthGain.gain.value = .22;
+      synthGain.connect(audioContext.destination);
+      synthStep = 0;
+      playSynthChord();
+      synthTimer = window.setInterval(playSynthChord, 2200);
+      setMusicPlaying(true, true);
       return true;
-    } catch (_) {
-      audioAvailable = false;
-      musicButton.classList.remove('playing');
-      musicButton.setAttribute('aria-label', 'Background music file not added yet');
-      musicButton.title = 'Add assets/music/graduation.mp3 to enable music';
-      return false;
+    } catch (_) { return false; }
+  }
+
+  async function playMusic() {
+    if (audioAvailable) {
+      try {
+        music.volume = .58;
+        await music.play();
+        setMusicPlaying(true);
+        return true;
+      } catch (_) {
+        audioAvailable = false;
+      }
     }
+    return startSynthMusic();
+  }
+
+  function pauseMusic() {
+    music.pause();
+    if (synthTimer) window.clearInterval(synthTimer);
+    synthTimer = null;
+    if (synthGain && audioContext) {
+      const oldGain = synthGain;
+      synthGain = null;
+      try {
+        oldGain.gain.setTargetAtTime(.0001, audioContext.currentTime, .06);
+        window.setTimeout(() => { try { oldGain.disconnect(); } catch (_) {} }, 500);
+      } catch (_) {}
+    }
+    setMusicPlaying(false);
   }
 
   $('#open-surprise').addEventListener('click', async () => {
@@ -112,12 +179,8 @@
     window.scrollTo(0, 0);
   });
   musicButton.addEventListener('click', async () => {
-    if (!music.paused) {
-      music.pause();
-      musicButton.classList.remove('playing');
-      musicButton.setAttribute('aria-label', 'Play background music');
-      musicButton.title = 'Play background music';
-    } else await playMusic();
+    if (!music.paused || musicButton.classList.contains('synth-playing')) pauseMusic();
+    else await playMusic();
   });
 
   // Photo placeholder and full-screen image view.
